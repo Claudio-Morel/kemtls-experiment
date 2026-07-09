@@ -4,10 +4,10 @@
 	branch = optls
 [submodule "mk-cert"]
 	path = mk-cert
-	url = https://github.com/thomwiggers/mk-cert
+	url = https://github.com/Claudio-Morel/mk-cert
 [submodule "rustls"]
 	path = rustls
-	url = https://github.com/thomwiggers/rustls.git
+	url = https://github.com/Claudio-Morel/rustls.git
 	branch = secsidh-nike
 [submodule "ring"]
 	path = ring
