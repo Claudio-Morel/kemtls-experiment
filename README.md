@@ -108,7 +108,7 @@ See also the notes below.
 * If you want to make a fork of this repository, you will need to also fork the relevant submodules and update your `.gitmodules`.
 * The Dockerfile serves as an example of how everything can be compiled and how test setups can be created.
    It is used by the ``./measuring/script/create-experimental-setup.sh`` script, which serves as an example of its use.
-* The `mk-certs` folder contains a python script, `encoder.py`, that can be used to create the required PKI.
+* The `mk-cert` folder contains a Python script, `encoder.py`, that can be used to create the required PKI.
    RSA certificates and X25519 certificates are available in subfolders.
    The certificates assume that the server hostname is ``servername``, so put this in your `/etc/hosts`.
    Alternatively, override it using the environment variables in the file (which is also how you set which algorithms are used).
@@ -117,3 +117,31 @@ See also the notes below.
 * The measurement setup is handled in the `measuring/` folder. See the `./run_experiment.sh` script.
 * Processing of results is done by the `./scripts/process.py` folder. It expects a `data` folder as produced by `./scripts/experiment.py`.
 * Downloading archived results can be done through the scripts in ``measuring/archived-results/``
+
+## Thesis experimental fork
+
+The thesis fork starts from upstream commit
+`880f4a1b7756bd2147238db5db4d29a0ee51730f` (`Upload more archives`, 2023-11-16).
+The changes on `thesis-custom` add mutual KEMTLS client authentication, a
+TCP-only handshake harness, corporate-style certificate material, and
+bilateral timing marks for the Linux-network-namespace testbed.
+
+The stabilized harness is pinned through the `rustls` submodule at commit
+`469da2919f81e0f5b121b0e73f4a232189b826d5`. Its
+`rustls/kemtls-handshake-bench/README.md` documents the authoritative mutual
+and PDK completion events, the historical PDK aliases, and the validation
+commands. The code remains an experimental research artifact and is not a
+production TLS implementation.
+
+The stabilized state was checked with:
+
+```console
+cd rustls/kemtls-handshake-bench
+cargo fmt -- --check
+cargo test --locked
+cargo build --locked --bin server --bin client
+```
+
+It was also exercised with local mutual and PDK client/server smoke tests that
+validated the `CLOCK_MONOTONIC` JSON marks and the expected bilateral event for
+each flow.

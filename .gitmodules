@@ -8,7 +8,7 @@
 [submodule "rustls"]
 	path = rustls
 	url = https://github.com/Claudio-Morel/rustls.git
-	branch = secsidh-nike
+	branch = thesis-custom
 [submodule "ring"]
 	path = ring
 	url = https://github.com/thomwiggers/ring.git
